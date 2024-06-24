@@ -190,10 +190,10 @@ def convert_from_mitiq(
 
     try:
         converted_circuit = conversion_function(circuit)
-    except Exception:
+    except Exception as e:
         raise CircuitConversionError(
             f"Circuit could not be converted from an internal Mitiq type to a "
-            f"circuit of type {conversion_type}."
+            f"circuit of type {conversion_type} because {e}."
         )
 
     return converted_circuit
