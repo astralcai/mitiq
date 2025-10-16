@@ -56,12 +56,15 @@ braket_circuit = BKCircuit(
     ]
 )
 
+# pennylane circuit
+pennylane_circuit = qml.tape.QuantumScript([qml.H(0), qml.CNOT([0, 1])])
+
 circuit_types = {
     "cirq": cirq.Circuit,
     "qiskit": qiskit.QuantumCircuit,
     "pyquil": Program,
     "braket": BKCircuit,
-    "pennylane": qml.tape.QuantumTape,
+    "pennylane": qml.tape.QuantumScript,
     "qibo": qibo.models.circuit.Circuit,
 }
 
@@ -171,6 +174,7 @@ def test_accept_any_qprogram_as_input(circuit_and_expected, to_type):
         (qiskit_circuit, "qiskit"),
         (pyquil_circuit, "pyquil"),
         (braket_circuit, "braket"),
+        (pennylane_circuit, "pennylane"),
     ),
 )
 def test_converter(circuit_and_type):
