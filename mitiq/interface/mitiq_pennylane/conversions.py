@@ -9,6 +9,7 @@ Pennylane's circuit representation.
 
 from cirq import Circuit
 from pennylane import from_qasm as pennylane_from_qasm
+from pennylane import to_openqasm as pl_to_qasm
 from pennylane.tape import QuantumTape
 from pennylane.wires import Wires
 from pennylane_qiskit.qiskit_device import QISKIT_OPERATION_MAP
@@ -56,7 +57,7 @@ def from_pennylane(tape: QuantumTape) -> Circuit:
         )
 
     tape = tape.expand(stop_at=lambda obj: obj.name in SUPPORTED)
-    qasm = tape.to_openqasm(rotations=False, wires=wires, measure_all=False)
+    qasm = pl_to_qasm(tape, wires=wires, rotations=False, measure_all=False)
 
     return cirq_from_qasm(qasm)
 
